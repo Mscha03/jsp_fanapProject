@@ -13,9 +13,8 @@ public class SavingAccount extends BankAccount {
     public SavingAccount(BuilderAccount builderAccount, Double interestRate) {
         super(builderAccount);
         this.interestRate = interestRate;
+        applyInterestByTime();
     }
-
-
 
 
     public void applyInterest (){
