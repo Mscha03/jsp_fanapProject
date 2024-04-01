@@ -13,13 +13,13 @@ public class SavingAccount extends BankAccount {
         super(accountNumber, accountHolderName, balance);
         this.interestRate = interestRate;
         this.minimumBalance = minimumBalance;
-        applyInterestByTime();
+        /*applyInterestByTime();*/
     }
 
     public SavingAccount(String accountNumber, String accountHolderName, double interestRate) {
         super(accountNumber, accountHolderName);
         this.interestRate = interestRate;
-        applyInterestByTime();
+        /*applyInterestByTime();*/
     }
 
     public void applyInterest (){

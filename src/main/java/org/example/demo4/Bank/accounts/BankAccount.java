@@ -2,13 +2,16 @@ package org.example.demo4.Bank.accounts;
 import org.example.demo4.Bank.accounts.BuilderInterfaces.BuilderAccount;
 import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
+import org.example.demo4.DataBase.DataBaseController;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 public class BankAccount implements Serializable {
     protected String accountNumber;
     protected double balance = 0;
     protected String accountHolderName;
+    public BankAccountType type;
 
     // Constructor
     public BankAccount(BuilderAccount builderAccount) {
@@ -18,20 +21,24 @@ public class BankAccount implements Serializable {
     }
 
     // Account method
-    public void deposit (double amount){
+    public void deposit (double amount) throws SQLException {
         if (amount < 0)
             throw new IllegalArgumentException("amount of deposit can not be negative");
-        else
+        else {
             balance += amount;
+            DataBaseController.deposit(this, amount);
+        }
     }
 
-    public void withdraw (double amount) throws InsufficientFundsException, InvalidTransactionException {
+    public void withdraw (double amount) throws InsufficientFundsException, InvalidTransactionException, SQLException {
         if (amount > balance)
             throw new InsufficientFundsException("insufficient balance ");
         else if (amount < 0)
             throw new InsufficientFundsException("not valid amount ");
-        else
+        else {
             balance -= amount;
+            DataBaseController.withdraw(this, amount);
+        }
     }
 
 
@@ -48,5 +55,9 @@ public class BankAccount implements Serializable {
         return accountHolderName;
     }
 
+    public BankAccountType getType() {
+        return type;
+    }
 
+    public enum  BankAccountType {CHECKING_ACCOUNT, SAVING_ACCOUNT};
 }

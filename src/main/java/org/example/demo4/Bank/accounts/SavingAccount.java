@@ -5,6 +5,9 @@ import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
 import org.example.demo4.Bank.scheduler.Period;
 import org.example.demo4.Bank.scheduler.Scheduler;
+import org.example.demo4.DataBase.DataBaseController;
+
+import java.sql.SQLException;
 
 public class SavingAccount extends BankAccount {
     double interestRate;
@@ -12,8 +15,10 @@ public class SavingAccount extends BankAccount {
 
     public SavingAccount(BuilderAccount builderAccount, Double interestRate) {
         super(builderAccount);
+        super.type = BankAccountType.SAVING_ACCOUNT;
         this.interestRate = interestRate;
-        applyInterestByTime();
+        DataBaseController.createAccountInDatabase(this);
+        /*applyInterestByTime();*/
     }
 
 
@@ -22,15 +27,17 @@ public class SavingAccount extends BankAccount {
     }
 
      @Override
-     public void withdraw (double amount) throws InsufficientFundsException, InvalidTransactionException {
+     public void withdraw (double amount) throws InsufficientFundsException, InvalidTransactionException, SQLException {
          if (amount > balance)
              throw new InsufficientFundsException("insufficient balance ");
          else if (amount < 0)
              throw new InsufficientFundsException("not valid amount ");
-         else if (balance- amount < minimumBalance)
+         else if (balance - amount < minimumBalance)
              throw new InvalidTransactionException("your balance should maintain bigger than minimumBalance");
-         else
+         else {
              balance -= amount;
+             DataBaseController.withdraw(this,amount);
+         }
      }
 
      private void applyInterestByTime() {
@@ -43,5 +50,11 @@ public class SavingAccount extends BankAccount {
         };
     }
 
+    public double getInterestRate() {
+        return interestRate;
+    }
 
+    public double getMinimumBalance() {
+        return minimumBalance;
+    }
 }
