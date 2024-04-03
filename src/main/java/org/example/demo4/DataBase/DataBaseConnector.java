@@ -15,13 +15,16 @@ public class DataBaseConnector {
     Statement statement = null;
 
 
-    public void insert(String tableName, List<String> columns, List<String> information) {
+    public void insert(String tableName, List<String> columns, List<String> information, Boolean repeatable) {
 
-
-        String query = "INSERT INTO " + tableName + "( " + String.join(", ", columns) + ") " +
-                "SELECT * FROM (SELECT " + String.join(", ", information) + " ) AS tmp " +
-                "WHERE NOT EXISTS ( SELECT * FROM " + tableName + " WHERE " +  tableName + "." + columns.get(0) + " = " +information.get(0) + ") LIMIT 1;";
-
+        String query = "";
+        if (!repeatable) {
+            query = "INSERT INTO " + tableName + "( " + String.join(", ", columns) + ") " +
+                    "SELECT * FROM (SELECT " + String.join(", ", information) + " ) AS tmp " +
+                    "WHERE NOT EXISTS ( SELECT * FROM " + tableName + " WHERE " + tableName + "." + columns.get(0) + " = " + information.get(0) + ") LIMIT 1;";
+        }else {
+            query =   "INSERT INTO " + tableName + "( " + String.join(", ", columns) + ") " + "VALUES (" + String.join(", ", information) +");";
+        }
         try {
             Class.forName(JDBC_DRIVER);
 
@@ -37,9 +40,9 @@ public class DataBaseConnector {
 
     }
 
-    public  ResultSet find(String tableName, String primaryName, String primaryValue) throws SQLException {
+    public  ResultSet find(String tableName, String primaryName, String  primaryValue) throws SQLException {
 
-        String query = "SELECT * FROM " + tableName + " WHERE " + primaryName + " = " + primaryValue + ";";
+        String query = "SELECT * FROM " + tableName + " WHERE " + primaryName + " = '" + primaryValue + "';";
 
         try {
 
@@ -55,8 +58,14 @@ public class DataBaseConnector {
 
     }
 
-    public ResultSet getAll(String tableName){
-        String query = "SELECT * FROM " + tableName + ";";
+    public ResultSet getAll(String tableName,String whereParameter, String whereValue){
+        String query = "SELECT * FROM " + tableName;
+
+        if (whereValue != null){
+           query =  query + " WHERE "+ whereParameter + " = '" + whereValue +"';";
+        }
+
+
 
         try {
 
@@ -87,7 +96,7 @@ public class DataBaseConnector {
         }
     }
 
-    public void update(String tableName, String primaryName, String primaryValue, String editedVariable, String newValue) throws SQLException {
+    public void update(String tableName, String primaryName, String primaryValue, String editedVariable, String newValue) {
 
             String query = "UPDATE " +tableName+ " SET " + editedVariable + " = " + newValue + " WHERE " + primaryName + " = " + primaryValue + ";";
 

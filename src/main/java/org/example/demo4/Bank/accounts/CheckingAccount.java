@@ -1,10 +1,9 @@
 package org.example.demo4.Bank.accounts;
 
-import org.example.demo4.Bank.accounts.BuilderInterfaces.BuilderAccount;
 import org.example.demo4.Bank.accounts.BuilderInterfaces.BuilderCheckingAccount;
 import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
-import org.example.demo4.DataBase.DataBaseController;
+import org.example.demo4.DataBase.AccountController;
 
 import java.sql.SQLException;
 
@@ -15,7 +14,6 @@ public class CheckingAccount extends BankAccount {
         super(builderCheckingAccount);
         super.type = BankAccountType.CHECKING_ACCOUNT;
         this.overdraftLimit = overdraftLimit;
-        DataBaseController.createAccountInDatabase(this);
     }
 
     @Override
@@ -26,14 +24,14 @@ public class CheckingAccount extends BankAccount {
             throw new InsufficientFundsException("not valid amount ");
         else
             balance -= amount;
-            DataBaseController.withdraw(this,amount);
+            AccountController.withdraw(this,amount);
         deductFees(amount);
     }
 
     @Override
     public void deposit(double amount) throws SQLException {
         super.deposit(amount);
-        DataBaseController.deposit(this,amount);
+        AccountController.deposit(this,amount);
         deductFees(amount);
     }
 

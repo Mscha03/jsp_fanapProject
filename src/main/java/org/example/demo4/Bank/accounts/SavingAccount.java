@@ -5,7 +5,7 @@ import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
 import org.example.demo4.Bank.scheduler.Period;
 import org.example.demo4.Bank.scheduler.Scheduler;
-import org.example.demo4.DataBase.DataBaseController;
+import org.example.demo4.DataBase.AccountController;
 
 import java.sql.SQLException;
 
@@ -17,7 +17,6 @@ public class SavingAccount extends BankAccount {
         super(builderAccount);
         super.type = BankAccountType.SAVING_ACCOUNT;
         this.interestRate = interestRate;
-        DataBaseController.createAccountInDatabase(this);
         /*applyInterestByTime();*/
     }
 
@@ -36,7 +35,7 @@ public class SavingAccount extends BankAccount {
              throw new InvalidTransactionException("your balance should maintain bigger than minimumBalance");
          else {
              balance -= amount;
-             DataBaseController.withdraw(this,amount);
+             AccountController.withdraw(this,amount);
          }
      }
 

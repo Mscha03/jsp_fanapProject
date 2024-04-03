@@ -3,4 +3,61 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
+    <!-- servlet for site account-->
+    <servlet>
+        <servlet-name>createAccount</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.SiteAccount.CreateAccountController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createAccount</servlet-name>
+        <url-pattern>/createAccount</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getAccount</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.SiteAccount.GetAccountController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAccount</servlet-name>
+        <url-pattern>/getAccount</url-pattern>
+    </servlet-mapping>
+
+
+    <!--servlet for bank account-->
+    <servlet>
+        <servlet-name>bankAccountCreator</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.BankAccount.CreateBankAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bankAccountCreator</servlet-name>
+        <url-pattern>/bankAccountCreator</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>transferBankAccountServlet</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.BankAccount.TransferServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>transferBankAccountServlet</servlet-name>
+        <url-pattern>/transferBankAccountServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>displayServlet</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.BankAccount.DisplayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>displayServlet</servlet-name>
+        <url-pattern>/displayServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteServlet</servlet-name>
+        <servlet-class>org.example.demo4.Servlet.BankAccount.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteServlet</servlet-name>
+        <url-pattern>/deleteServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

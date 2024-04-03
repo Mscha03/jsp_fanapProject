@@ -2,13 +2,13 @@ package org.example.demo4.Bank.accounts;
 import org.example.demo4.Bank.accounts.BuilderInterfaces.BuilderAccount;
 import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
-import org.example.demo4.DataBase.DataBaseController;
+import org.example.demo4.DataBase.AccountController;
 
 import java.io.Serializable;
 import java.sql.SQLException;
 
 public class BankAccount implements Serializable {
-    protected String accountNumber;
+    protected Integer accountNumber;
     protected double balance = 0;
     protected String accountHolderName;
     public BankAccountType type;
@@ -16,7 +16,7 @@ public class BankAccount implements Serializable {
     // Constructor
     public BankAccount(BuilderAccount builderAccount) {
         accountNumber = builderAccount.getAccountNumber();
-        accountHolderName = builderAccount.getAccountHolderNumber();
+        accountHolderName = builderAccount.getAccountHolderName();
         balance = builderAccount.getBalance();
     }
 
@@ -26,7 +26,7 @@ public class BankAccount implements Serializable {
             throw new IllegalArgumentException("amount of deposit can not be negative");
         else {
             balance += amount;
-            DataBaseController.deposit(this, amount);
+            AccountController.deposit(this, amount);
         }
     }
 
@@ -37,13 +37,13 @@ public class BankAccount implements Serializable {
             throw new InsufficientFundsException("not valid amount ");
         else {
             balance -= amount;
-            DataBaseController.withdraw(this, amount);
+            AccountController.withdraw(this, amount);
         }
     }
 
 
     // Getters
-    public String getAccountNumber() {
+    public Integer getAccountNumber() {
         return accountNumber;
     }
 
@@ -59,5 +59,5 @@ public class BankAccount implements Serializable {
         return type;
     }
 
-    public enum  BankAccountType {CHECKING_ACCOUNT, SAVING_ACCOUNT};
+    public enum  BankAccountType {CHECKING_ACCOUNT, SAVING_ACCOUNT}
 }
