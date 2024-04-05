@@ -23,7 +23,7 @@ public class CreateAccountController extends HttpServlet {
 String name = null;
        try {
             name = req.getParameter("name");
-           String username = req.getParameter("username");
+            String username = req.getParameter("username");
             String password = req.getParameter("password");
 
             Person person = new Person(name, username, password);
@@ -33,7 +33,7 @@ String name = null;
            resp.sendRedirect("error.jsp");
         }
          req.setAttribute("name", name);
-         RequestDispatcher requestDispatcher = req.getRequestDispatcher("done.jsp");
+         RequestDispatcher requestDispatcher = req.getRequestDispatcher("done_creating_account.jsp");
          requestDispatcher.forward(req, resp);
         
 

@@ -9,7 +9,6 @@ import org.example.demo4.Bank.accounts.CheckingAccount;
 import org.example.demo4.Bank.accounts.SavingAccount;
 import org.example.demo4.Bank.exeptions.InsufficientFundsException;
 import org.example.demo4.Bank.exeptions.InvalidTransactionException;
-import org.jetbrains.annotations.NotNull;
 
 
 import java.sql.ResultSet;
