@@ -22,7 +22,7 @@ public class GetAccountController extends HttpServlet {
             person = PersonController.getPersonDB( username, password);
 
         }catch (Exception e){
-            e.printStackTrace();
+            resp.sendRedirect("error.jsp");
         }
         if (person != null) {
             req.setAttribute("requestedPerson", person);

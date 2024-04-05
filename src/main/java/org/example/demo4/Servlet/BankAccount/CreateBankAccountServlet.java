@@ -44,19 +44,21 @@ public class CreateBankAccountServlet extends HttpServlet {
         if (Objects.equals(type, "Checking")) {
             try {
                 createCheckingAccount(req, resp);
+                resp.sendRedirect("create_bank_account_checking.jsp");
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                resp.sendRedirect("error.jsp");;
             }
 
         } else if (Objects.equals(type, "Saving")) {
             try {
                 createSavingAccount(req, resp);
+                resp.sendRedirect("create_bank_account_saving.jsp");
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                resp.sendRedirect("error.jsp");
             }
         }
 
-        resp.sendRedirect("success_create_account.jsp");
+
     }
 
 }
