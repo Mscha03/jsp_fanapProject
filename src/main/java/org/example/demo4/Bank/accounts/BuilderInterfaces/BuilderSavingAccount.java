@@ -17,7 +17,6 @@ public class BuilderSavingAccount extends BuilderAccount{
     }
 
 
-
     @Override
     public BuilderSavingAccount setBalance(Double balance) {
         super.balance = balance;
@@ -37,7 +36,7 @@ public class BuilderSavingAccount extends BuilderAccount{
 
     @Override
     public SavingAccount build(){
-        return new SavingAccount(this, interestRate);
+        return new SavingAccount(this, interestRate, minimumBalance);
     }
 
 

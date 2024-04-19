@@ -14,10 +14,6 @@ import java.util.*;
 
 public class DisplayServlet extends HttpServlet {
 
-
-    private static final String account = "account";
-    private static final String transaction = "transaction";
-
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

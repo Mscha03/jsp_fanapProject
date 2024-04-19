@@ -13,10 +13,11 @@ public class SavingAccount extends BankAccount {
     double interestRate;
     protected double minimumBalance;
 
-    public SavingAccount(BuilderAccount builderAccount, Double interestRate) {
+    public SavingAccount(BuilderAccount builderAccount, Double interestRate, Double minimumBalance) {
         super(builderAccount);
         super.type = BankAccountType.SAVING_ACCOUNT;
         this.interestRate = interestRate;
+        this.minimumBalance = minimumBalance;
         /*applyInterestByTime();*/
     }
 
